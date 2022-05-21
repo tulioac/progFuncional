@@ -127,7 +127,7 @@ quickSortFilter xs = undefined
 {-
 - Implemente uma função que soma todos os elementos de uma lista usando foldl
 -}
-sumFoldl xs = undefined
+sumFoldl xs = foldl (+) 0 xs
 
 {-
 - Retorna uma lista sem repetição a partir de uma lista possivelmente com elementos repetidos
