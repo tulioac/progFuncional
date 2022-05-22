@@ -107,22 +107,33 @@ myLength xs = 1 + myLength (tail xs)
 {-
 - Escreva a função myAppend que faz o append de uma lista xs com a lista ys, usando a função foldr.
 -}
-myAppend xs ys = undefined
+myAppend xs ys = foldr (:) xs ys
 
 {-
 - Encontra o primeiro elemento da lista que satisfaz o predicado p ou então retorna um erro
 -}
-find p xs = undefined
+find p [] = error "Not found"
+find p xs
+  | p head xs = head xs
+  | otherwise = find p (tail xs)
 
 {-
 - Implementar Quick Sort usando compreensão de listas
 -}
-quickSort xs = undefined
+quickSort [] = []
+quickSort xs = quickSort smaller ++ [head xs] ++ quickSort greater
+  where
+    smaller = [y | y <- xs, y < head xs]
+    greater = [y | y <- xs, y > head xs]
 
 {-
 - Implementar Quick Sort usando filter
 -}
-quickSortFilter xs = undefined
+quickSortFilter [] = []
+quickSortFilter xs = quickSort smaller ++ [head xs] ++ quickSort greater
+  where
+    smaller = filter (< head xs) xs
+    greater = filter (> head xs) xs
 
 {-
 - Implemente uma função que soma todos os elementos de uma lista usando foldl
@@ -132,19 +143,19 @@ sumFoldl xs = foldl (+) 0 xs
 {-
 - Retorna uma lista sem repetição a partir de uma lista possivelmente com elementos repetidos
 -}
-unique xs = undefined
+unique xs = compress
 
 {-
 - Conta a quantidade de ocorrências de um elemento em uma lista
 -}
-count x xs = undefined
+count x xs = length (filter (== x) xs)
 
 {-
 - Dada uma lista de elementos possivelmente repetidos, retorna uma lista de
 - pares contendo um elemento da lista original e sua quantidade de ocorrências
 - Cada elemento da lista original possui apenas um par correspondente na lista de resposta
 -}
-frequência xs = undefined
+frequência xs = encode
 
 {-
 - Função concat definida usando foldr
@@ -152,4 +163,4 @@ frequência xs = undefined
 - listas e realiza a concatenação de todas as listas.
 - Ex: concat [[1,2],[3,4]] = [1,2,3,4]
 -}
-concatFoldr xs = undefined
+concatFoldr xs = foldr (++) [] xs

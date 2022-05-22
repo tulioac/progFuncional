@@ -145,7 +145,3 @@ myRepeat n = n : myRepeat n
 
 myReplicate k 0 = []
 myReplicate k n = k : myReplicate k (n - 1)
-
-myRangeStepAda k p m
-  | k <= m = [k] ++ myRangeStepAda (k + p) p m
-  | otherwise = []
