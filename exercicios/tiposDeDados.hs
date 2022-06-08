@@ -64,19 +64,29 @@ sizeBST NIL = 0
 sizeBST (Node left a right) = 1 + sizeBST left + sizeBST right
 
 --verifica se uma BT é uma BST
-isBST :: BinaryTree a -> Bool
 isBST NIL = True
-
--- isBST (Node a left right) = max (order left)
+isBST (Node left a right) = and ([x < a | x <- order left] ++ [x > a | x <- order right]) 
 
 --insere uma nova chave na BST retornando a BST modificada
-insert = undefined
+insert x NIL = Node NIL x NIL
+insert x (Node left a right) 
+  | x < a = Node (insert x left) a right  
+  | x > a = Node left a (insert x right)
+  | otherwise = Node left a right
 
 --retorna o Node da BST contendo o dado procurado ou então NIL
-search = undefined
+
+search x NIL = NIL
+search x (Node left a right)
+  | x == a = Node left a right
+  | x < a = search x left
+  | x > a = search x right
 
 -- retorna o elemento máximo da BST
-maximum = undefined
+maximumBST NIL = NIL
+maximumBST (Node left a right) 
+  | right == NIL = a
+  | otherwise = maximumBST right
 
 --retorna o elemento mínimo da BST
 minimum = undefined
